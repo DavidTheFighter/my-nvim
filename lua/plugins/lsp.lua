@@ -188,6 +188,9 @@ return {
             },
           },
         },
+        pyright = {
+          settings = {},
+        },
       }
 
       -- Ensure the servers and tools above are installed
@@ -218,6 +221,16 @@ return {
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
           end,
+        },
+      }
+
+      -- Set up ccls my self :(
+      require('lspconfig').ccls.setup {
+        settings = {
+          compilationDatabaseDirectory = '.compiledb',
+          index = {
+            threads = 4,
+          },
         },
       }
     end,

@@ -64,6 +64,8 @@ return {
           --  This will expand snippets if the LSP sent a snippet.
           ['<CR>'] = cmp.mapping.confirm { select = true },
 
+          ['<C-n>'] = cmp.mapping.confirm { select = false },
+
           -- Manually trigger a completion from nvim-cmp.
           --  Generally you don't need this, because nvim-cmp will display
           --  completions whenever it has completion options available.
