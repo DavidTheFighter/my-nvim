@@ -91,7 +91,6 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 
 vim.keymap.set('n', '<leader>W', function()
   vim.cmd.vnew()
-  vim.cmd.wincmd 'L'
 end, { desc = 'New [W]indow' })
 
 -- [[ Basic Autocommands ]]
