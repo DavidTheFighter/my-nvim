@@ -226,8 +226,12 @@ return {
 
       -- Set up ccls my self :(
       require('lspconfig').ccls.setup {
-        settings = {
+        init_options = {
           compilationDatabaseDirectory = '.compiledb',
+          cacheDirectory = '~/.ccls-cache',
+          cache = {
+            directory = '~/.ccls-cache',
+          },
           index = {
             threads = 4,
           },
