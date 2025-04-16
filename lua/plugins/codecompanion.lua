@@ -6,41 +6,11 @@ return {
       { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
     },
     config = function()
+      local local_config = require 'local'
+
       require('codecompanion').setup {
-        strategies = {
-          chat = {
-            adapter = 'bedrock_claude_chat',
-          },
-          inline = {
-            adapter = 'bedrock_claude_chat',
-          },
-          cmd = {
-            adapter = 'bedrock_claude_chat',
-          },
-        },
-        adapters = {
-          opts = {
-            show_defaults = false,
-          },
-          bedrock_claude_chat = function()
-            return require('codecompanion.adapters').extend('openai_compatible', {
-              env = {
-                url = 'http://172.31.25.243:8000',
-              },
-              schema = {
-                messages = {
-                  { role = 'user', content = '' },
-                },
-                model = {
-                  default = 'bedrock-claude-v1',
-                },
-                max_tokens = {
-                  default = 200000,
-                },
-              },
-            })
-          end,
-        },
+        strategies = local_config.codecompanion_strategies(),
+        adapters = local_config.codecompanion_adapters(),
       }
 
       vim.keymap.set({ 'n', 'v' }, '<C-a>', '<cmd>CodeCompanionActions<cr>', { noremap = true, silent = true })
