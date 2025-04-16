@@ -47,6 +47,7 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
 vim.opt.scrolloff = 15
+vim.opt.autoread = true
 
 vim.schedule(function()
   vim.opt.clipboard = 'unnamedplus'

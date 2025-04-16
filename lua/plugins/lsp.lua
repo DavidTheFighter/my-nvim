@@ -230,7 +230,7 @@ return {
           compilationDatabaseDirectory = '.compiledb',
           cacheDirectory = '~/.ccls-cache',
           cache = {
-            directory = '~/.ccls-cache',
+            directory = '/tmp/ccls-cache',
           },
           index = {
             threads = 4,
