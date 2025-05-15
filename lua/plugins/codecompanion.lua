@@ -5,6 +5,7 @@ return {
       'nvim-lua/plenary.nvim',
       { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
     },
+    enabled = false,
     config = function()
       local local_config = require 'local'
 
