@@ -146,6 +146,9 @@ return {
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         -- See `:help lspconfig-all` for a list of all the pre-configured LSPs
+        -- clangd = {
+        --   cmd = { 'clangd', '--compile-commands-dir=.compiledb' },
+        -- },
         rust_analyzer = {
           settings = {},
         },
@@ -161,7 +164,11 @@ return {
         },
         basedpyright = {
           cmd = { 'basedpyright-langserver', '--stdio', '--threads', '2' },
-          settings = {},
+          settings = {
+            basedpyright = {
+              exclude = { '**/external' },
+            },
+          },
         },
       }
 
@@ -184,6 +191,7 @@ return {
       require('mason-lspconfig').setup {
         ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
         automatic_installation = false,
+        automatic_enable = true,
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
@@ -191,24 +199,25 @@ return {
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
+            vim.lsp.enable(server_name)
+            vim.lsp.config(server_name, server)
           end,
         },
       }
 
       -- Set up ccls my self :(
-      require('lspconfig').ccls.setup {
-        init_options = {
-          compilationDatabaseDirectory = '.compiledb',
-          cacheDirectory = '~/.ccls-cache',
-          cache = {
-            directory = '/tmp/ccls-cache',
-          },
-          index = {
-            threads = 4,
-          },
-        },
-      }
+      --   require('lspconfig').ccls.setup {
+      --     init_options = {
+      --       compilationDatabaseDirectory = '.compiledb',
+      --       cacheDirectory = '/home/allen/ccls-cache',
+      --       cache = {
+      --         directory = '/home/allen/ccls-cache',
+      --       },
+      --       index = {
+      --         threads = 3,
+      --       },
+      --     },
+      --   }
     end,
   },
 }

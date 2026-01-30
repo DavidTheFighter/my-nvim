@@ -1,6 +1,23 @@
 local M = {}
 
 function M.setup_keybinds()
+  -- Remap j and k to move by visual lines to account for line wrap
+  vim.keymap.set('n', 'j', function()
+    return vim.v.count == 0 and 'gj' or 'j'
+  end, { expr = true, noremap = true, silent = true })
+
+  vim.keymap.set('n', 'k', function()
+    return vim.v.count == 0 and 'gk' or 'k'
+  end, { expr = true, noremap = true, silent = true })
+
+  vim.keymap.set('v', 'j', function()
+    return vim.v.count == 0 and 'gj' or 'j'
+  end, { noremap = true, silent = true })
+
+  vim.keymap.set('v', 'k', function()
+    return vim.v.count == 0 and 'gk' or 'k'
+  end, { noremap = true, silent = true })
+
   -- Open new window
   vim.keymap.set('n', '<leader>W', function()
     vim.cmd.vnew()
@@ -42,6 +59,20 @@ function M.setup_keybinds()
     -- Set the height of the current window
     vim.api.nvim_win_set_height(current_window, new_height)
   end, { desc = '[w]indow decrease height' })
+
+  vim.keymap.set('n', '<leader>wl', function()
+    -- Get the current window and its height
+    local current_window = vim.api.nvim_get_current_win()
+
+    -- Get the total number of lines in the current Neovim instance
+    local total_height = vim.api.nvim_get_option 'lines'
+
+    -- Calculate 40% of the total height
+    local new_height = math.floor(20)
+
+    -- Set the height of the current window
+    vim.api.nvim_win_set_height(current_window, new_height)
+  end, { desc = '[w]indow [l]egible height' })
 end
 
 return M
