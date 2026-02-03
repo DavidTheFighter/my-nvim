@@ -12,11 +12,11 @@ function M.setup_keybinds()
 
   vim.keymap.set('v', 'j', function()
     return vim.v.count == 0 and 'gj' or 'j'
-  end, { noremap = true, silent = true })
+  end, { expr = true, noremap = true, silent = true })
 
   vim.keymap.set('v', 'k', function()
     return vim.v.count == 0 and 'gk' or 'k'
-  end, { noremap = true, silent = true })
+  end, { expr = true, noremap = true, silent = true })
 
   -- Open new window
   vim.keymap.set('n', '<leader>W', function()
