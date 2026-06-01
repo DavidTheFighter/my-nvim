@@ -1,6 +1,7 @@
 return {
   {
-    'numToStr/Comment.nvim',
+    'nvim-mini/mini.comment',
+    version = '*',
     opts = {},
   },
 }
